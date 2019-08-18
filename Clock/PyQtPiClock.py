@@ -290,24 +290,24 @@ def wxfinished():
 # Config.LPrecip1hr + f['precip_1hr_in'] + 'in ' +
 # Config.LToday + f['precip_today_in'] + 'in')
 
-    bottomText = ""
-    if "sunriseTime" in wxdata["daily"]["data"][0]:
-        bottomText += (Config.LSunRise +
-                       "{0:%H:%M}".format(datetime.datetime.fromtimestamp(
-                        wxdata["daily"]["data"][0]["sunriseTime"])) +
-                       Config.LSet +
-                       "{0:%H:%M}".format(datetime.datetime.fromtimestamp(
-                        wxdata["daily"]["data"][0]["sunsetTime"])))
+    # bottomText = ""
+    # if "sunriseTime" in wxdata["daily"]["data"][0]:
+        # bottomText += (Config.LSunRise +
+                       # "{0:%H:%M}".format(datetime.datetime.fromtimestamp(
+                        # wxdata["daily"]["data"][0]["sunriseTime"])) +
+                       # Config.LSet +
+                       # "{0:%H:%M}".format(datetime.datetime.fromtimestamp(
+                        # wxdata["daily"]["data"][0]["sunsetTime"])))
 
-    if "moonPhase" in wxdata["daily"]["data"][0]:
-        bottomText += (Config.LMoonPhase +
-                       phase(wxdata["daily"]["data"][0]["moonPhase"]))
+    # if "moonPhase" in wxdata["daily"]["data"][0]:
+        # bottomText += (Config.LMoonPhase +
+                       # phase(wxdata["daily"]["data"][0]["moonPhase"]))
 
-    bottom.setText(bottomText)
+    # bottom.setText(bottomText)
 
     for i in range(0, 3):
         f = wxdata['hourly']['data'][i * 3 + 2]
-        fl = forecast[i]
+        fl = forecast2[i]
         icon = fl.findChild(QtGui.QLabel, "icon")
         wxiconpixmap = QtGui.QPixmap(
             Config.icons + "/" + f['icon'] + ".png")
@@ -1049,24 +1049,24 @@ except AttributeError:
     Config.LRain = " Rain: "
     Config.LSnow = " Snow: "
 
-try:
-    Config.Lmoon1
-    Config.Lmoon2
-    Config.Lmoon3
-    Config.Lmoon4
-    Config.Lmoon5
-    Config.Lmoon6
-    Config.Lmoon7
-    Config.Lmoon8
-except AttributeError:
-    Config.Lmoon1 = 'New Moon'
-    Config.Lmoon2 = 'Waxing Crescent'
-    Config.Lmoon3 = 'First Quarter'
-    Config.Lmoon4 = 'Waxing Gibbous'
-    Config.Lmoon5 = 'Full Moon'
-    Config.Lmoon6 = 'Waning Gibbous'
-    Config.Lmoon7 = 'Third Quarter'
-    Config.Lmoon8 = 'Waning Crecent'
+# try:
+    # Config.Lmoon1
+    # Config.Lmoon2
+    # Config.Lmoon3
+    # Config.Lmoon4
+    # Config.Lmoon5
+    # Config.Lmoon6
+    # Config.Lmoon7
+    # Config.Lmoon8
+# except AttributeError:
+    # Config.Lmoon1 = 'New Moon'
+    # Config.Lmoon2 = 'Waxing Crescent'
+    # Config.Lmoon3 = 'First Quarter'
+    # Config.Lmoon4 = 'Waxing Gibbous'
+    # Config.Lmoon5 = 'Full Moon'
+    # Config.Lmoon6 = 'Waning Gibbous'
+    # Config.Lmoon7 = 'Third Quarter'
+    # Config.Lmoon8 = 'Waning Crecent'
 
 try:
     Config.digitalformat2
@@ -1229,10 +1229,10 @@ else:
     clockface.setGraphicsEffect(glow)
 
 
-radar1rect = QtCore.QRect(3 * xscale, 344 * yscale, 300 * xscale, 275 * yscale)
+radar1rect = QtCore.QRect(3 * xscale, 622 * yscale, 300 * xscale, 275 * yscale)
 objradar1 = Radar(foreGround, Config.radar1, radar1rect, "radar1")
 
-radar2rect = QtCore.QRect(3 * xscale, 622 * yscale, 300 * xscale, 275 * yscale)
+radar2rect = QtCore.QRect(310 * xscale, 622 * yscale, 300 * xscale, 275 * yscale)
 objradar2 = Radar(foreGround, Config.radar2, radar2rect, "radar2")
 
 radar3rect = QtCore.QRect(13 * xscale, 50 * yscale, 700 * xscale, 700 * yscale)
@@ -1429,17 +1429,17 @@ wdate.setStyleSheet("#wdate { background-color: transparent; color: " +
 wdate.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 wdate.setGeometry(3 * xscale, ypos * yscale, 300 * xscale, 100)
 
-bottom = QtGui.QLabel(foreGround)
-bottom.setObjectName("bottom")
-bottom.setStyleSheet("#bottom { font-family:sans-serif; color: " +
-                     Config.textcolor +
-                     "; background-color: transparent; font-size: " +
-                     str(int(30 * xscale)) +
-                     "px; " +
-                     Config.fontattr +
-                     "}")
-bottom.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
-bottom.setGeometry(0, height - 50, width, 50)
+# bottom = QtGui.QLabel(foreGround)
+# bottom.setObjectName("bottom")
+# bottom.setStyleSheet("#bottom { font-family:sans-serif; color: " +
+                     # Config.textcolor +
+                     # "; background-color: transparent; font-size: " +
+                     # str(int(30 * xscale)) +
+                     # "px; " +
+                     # Config.fontattr +
+                     # "}")
+# bottom.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
+# bottom.setGeometry(0, height - 50, width, 50)
 
 temp = QtGui.QLabel(foreGround)
 temp.setObjectName("temp")
@@ -1487,6 +1487,40 @@ for i in range(0, 9):
     day.setObjectName("day")
 
     forecast.append(lab)
+    
+    forecast2 = []
+for i in range(0, 3):
+    lab = QtGui.QLabel(foreGround)
+    lab.setObjectName("forecast2" + str(i))
+    lab.setStyleSheet("QWidget { background-color: transparent; color: " +
+                      Config.textcolor +
+                      "; font-size: " +
+                      str(int(20 * xscale)) +
+                      "px; " +
+                      Config.fontattr +
+                      "}")
+    lab.setGeometry(5 * xscale, i * 100 * yscale,
+                    300 * xscale, 100 * yscale)
+
+    icon = QtGui.QLabel(lab)
+    icon.setStyleSheet("#icon { background-color: transparent; }")
+    icon.setGeometry(0, 0, 100 * xscale, 100 * yscale)
+    icon.setObjectName("icon")
+
+    wx = QtGui.QLabel(lab)
+    wx.setStyleSheet("#wx { background-color: transparent; }")
+    wx.setGeometry(100 * xscale, 5 * yscale, 200 * xscale, 120 * yscale)
+    wx.setAlignment(Qt.AlignLeft | Qt.AlignTop)
+    wx.setWordWrap(True)
+    wx.setObjectName("wx")
+
+    day = QtGui.QLabel(lab)
+    day.setStyleSheet("#day { background-color: transparent; }")
+    day.setGeometry(100 * xscale, 75 * yscale, 200 * xscale, 25 * yscale)
+    day.setAlignment(Qt.AlignRight | Qt.AlignBottom)
+    day.setObjectName("day")
+
+    forecast2.append(lab)
 
 manager = QtNetwork.QNetworkAccessManager()
 
